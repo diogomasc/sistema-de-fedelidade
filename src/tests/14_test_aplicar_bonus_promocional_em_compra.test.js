@@ -7,7 +7,7 @@ describe('test_aplicar_bonus_promocional_em_compra', () => {
   it('deve aplicar bônus promocional em compra', () => {
     const cliente = new Cliente('João', TIPOS_CLIENTE.PADRAO);
     const valorCompra = 200;
-    const descontoPromocional = 2.5; // Aplica desconto: 200 / 2.5 = 80
+    const descontoPromocional = 0.6; // 60% de desconto: 200 * (1 - 0.6) = 200 * 0.4 = 80
     
     cliente.registrarCompra(valorCompra, descontoPromocional);
     

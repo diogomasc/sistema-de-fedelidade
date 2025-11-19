@@ -16,19 +16,20 @@ export class Cliente {
   /**
    * Registra uma compra e adiciona pontos à carteira
    * @param {number} valorCompra - Valor da compra em reais
-   * @param {number} [descontoPromocional] - Desconto promocional (ex: 1.2 para 20% de desconto)
+   * @param {number} [descontoPromocional] - Desconto promocional em decimal (ex: 0.1 para 10%, 0.2 para 20%, até 0.99 para 99%)
+   * @throws {Error} Se o desconto promocional estiver fora do range válido (0.01 a menor que 1.0)
    */
   registrarCompra(valorCompra, descontoPromocional = null) {
     let valorFinal = valorCompra;
     
-    if (descontoPromocional !== null && descontoPromocional > 0) {
-      // Aplica desconto: se descontoPromocional = 1.2, significa que o valor final é valorCompra / 1.2
-      // Exemplo: 200 / 1.2 = 166.67... mas o usuário quer 80
-      // Vou interpretar como: descontoPromocional é um multiplicador que reduz o valor
-      // Se descontoPromocional = 1.2, então valorFinal = valorCompra / 1.2
-      // Mas para dar 80 de 200, precisamos de 200 / 2.5 = 80
-      // Vou usar: valorFinal = valorCompra / descontoPromocional
-      valorFinal = valorCompra / descontoPromocional;
+    if (descontoPromocional !== null) {
+      // Valida range do desconto: deve estar entre 0.01 e menor que 1.0 (não inclui 1.0)
+      if (descontoPromocional <= 0 || descontoPromocional >= 1.0) {
+        throw new Error('Desconto promocional deve estar entre 0.01 (1%) e menor que 1.0 (100%)');
+      }
+      
+      // Calcula valor final com desconto: precoFinal = precoOriginal * (1 - taxaDeDesconto)
+      valorFinal = valorCompra * (1 - descontoPromocional);
     }
     
     this.carteira.adicionarPontos(valorFinal);
