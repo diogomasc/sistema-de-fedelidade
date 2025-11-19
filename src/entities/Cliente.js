@@ -1,5 +1,4 @@
 import { Carteira } from './Carteira.js';
-import { PONTOS_BOAS_VINDAS } from '../consts/index.js';
 
 /**
  * Classe Cliente
@@ -63,8 +62,8 @@ export class Cliente {
   /**
    * Adiciona pontos de boas-vindas ao cliente
    */
-  adicionarPontosBoasVindas() {
-    this.carteira.adicionarPontosDiretos(PONTOS_BOAS_VINDAS);
+  adicionarPontosBoasVindas(pontosBoasVindas) {
+    this.carteira.adicionarPontosDiretos(pontosBoasVindas);
   }
 
   /**

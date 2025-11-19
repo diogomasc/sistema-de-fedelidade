@@ -18,7 +18,3 @@ export const MULTIPLICADOR_PONTOS = {
 
 // Valor do desconto por ponto resgatado (em reais)
 export const VALOR_DESCONTO_POR_PONTO = 0.05;
-
-// Pontos de boas-vindas para novos clientes
-export const PONTOS_BOAS_VINDAS = 10;
-
