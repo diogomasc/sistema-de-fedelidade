@@ -87,6 +87,18 @@ export class ClienteRepository {
   }
 
   /**
+   * Calcula pontos para todos os clientes de uma lista
+   * @param {Cliente[]} listaClientes - Lista de clientes
+   * @returns {Array<{cliente: Cliente, pontos: number}>} Lista com cliente e seus pontos
+   */
+  calcularPontosListaClientes(listaClientes) {
+    return listaClientes.map(cliente => ({
+      cliente,
+      pontos: cliente.consultarPontos(),
+    }));
+  }
+
+  /**
    * Calcula o total de pontos de todos os clientes
    * @returns {number} Soma total de pontos
    */

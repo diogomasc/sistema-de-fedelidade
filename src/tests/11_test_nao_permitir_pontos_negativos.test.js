@@ -11,9 +11,9 @@ describe('test_nao_permitir_pontos_negativos', () => {
     
     // Tentando resgatar mais do que tem deve lançar erro
     expect(() => cliente.resgatarPontos(50)).toThrow('Saldo insuficiente');
-    
+
+    // Pontos devem ser zerados
     expect(cliente.consultarPontos()).toBe(0);
-    expect(cliente.consultarPontos()).toBeGreaterThanOrEqual(0);
   });
 });
 

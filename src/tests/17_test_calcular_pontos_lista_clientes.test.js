@@ -16,8 +16,14 @@ describe('test_calcular_pontos_lista_clientes', () => {
     repository.adicionar(cliente1);
     repository.adicionar(cliente2);
 
-    expect(cliente1.consultarPontos()).toBe(100);
-    expect(cliente2.consultarPontos()).toBe(150);
+    const listaClientes = repository.listarTodos();
+    const resultado = repository.calcularPontosListaClientes(listaClientes);
+
+    expect(resultado.length).toBe(2);
+    expect(resultado[0].cliente).toBe(cliente1);
+    expect(resultado[0].pontos).toBe(100);
+    expect(resultado[1].cliente).toBe(cliente2);
+    expect(resultado[1].pontos).toBe(150);
   });
 });
 

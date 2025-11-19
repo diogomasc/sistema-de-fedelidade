@@ -15,7 +15,11 @@ describe('test_registrar_varios_clientes_em_lista', () => {
     repository.adicionar(cliente2);
     repository.adicionar(cliente3);
 
-    expect(repository.listarTodos().length).toBe(3);
+    const clientes = repository.listarTodos();
+    expect(clientes.length).toBe(3);
+    expect(clientes).toContain(cliente1);
+    expect(clientes).toContain(cliente2);
+    expect(clientes).toContain(cliente3);
   });
 });
 
