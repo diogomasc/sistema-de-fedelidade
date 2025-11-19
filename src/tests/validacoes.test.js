@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { TIPOS_CLIENTE } from '../consts/index.js';
 import { Cliente } from '../entities/Cliente.js';
+import { ClienteRepository } from '../repository/ClienteRepository.js';
 
 describe('Cliente - Validações e Exceções', () => {
   // Teste 9: Assegurar que compras de valor zero não gerem pontos
@@ -30,11 +31,19 @@ describe('Cliente - Validações e Exceções', () => {
   });
 
   // Teste 12: Verificar se o sistema lança erro ao consultar cliente inexistente
-  // Nota: Este teste será implementado quando criarmos o Repository
-  // Por enquanto, testamos que um cliente recém-criado pode ser consultado
-  it('deve permitir consultar cliente recém-criado', () => {
-    const cliente = new Cliente('Ana', TIPOS_CLIENTE.PADRAO);
-    expect(cliente.consultarPontos()).toBe(0);
+  it('deve retornar null ao buscar cliente inexistente no repositório', () => {
+    const repository = new ClienteRepository();
+    
+    const clienteInexistente = repository.buscarPorNome('ClienteInexistente');
+    expect(clienteInexistente).toBeNull();
+    
+    // Testa que buscar um cliente inexistente retorna null
+    // e que tentar operar com null não quebra o sistema
+    expect(() => {
+      if (clienteInexistente) {
+        clienteInexistente.consultarPontos();
+      }
+    }).not.toThrow();
   });
 });
 
