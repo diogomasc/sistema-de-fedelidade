@@ -159,5 +159,36 @@ describe('ClienteRepository - Operações em Listas', () => {
     expect(ranking[2].pontos).toBe(75);
     expect(ranking[2].posicao).toBe(3);
   });
+
+  // Teste adicional: Remover cliente do repositório
+  it('deve remover cliente do repositório', () => {
+    const cliente1 = new Cliente('João', TIPOS_CLIENTE.PADRAO);
+    const cliente2 = new Cliente('Maria', TIPOS_CLIENTE.PREMIUM);
+
+    repository.adicionar(cliente1);
+    repository.adicionar(cliente2);
+
+    const removido = repository.remover(cliente1);
+    expect(removido).toBe(true);
+    expect(repository.listarTodos().length).toBe(1);
+    expect(repository.listarTodos()[0]).toBe(cliente2);
+
+    const naoRemovido = repository.remover(cliente1);
+    expect(naoRemovido).toBe(false);
+  });
+
+  // Teste adicional: Resgatar pontos com valor zero ou negativo
+  it('não deve resgatar pontos com valor zero ou negativo', () => {
+    const cliente = new Cliente('João', TIPOS_CLIENTE.PADRAO);
+    cliente.registrarCompra(100);
+
+    const pontosResgatadosZero = cliente.resgatarPontos(0);
+    expect(pontosResgatadosZero).toBe(0);
+    expect(cliente.consultarPontos()).toBe(100);
+
+    const pontosResgatadosNegativo = cliente.resgatarPontos(-10);
+    expect(pontosResgatadosNegativo).toBe(0);
+    expect(cliente.consultarPontos()).toBe(100);
+  });
 });
 
