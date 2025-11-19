@@ -16,8 +16,16 @@ describe('test_buscar_cliente_por_nome', () => {
     const encontrado = repository.buscarPorNome('Maria');
     expect(encontrado).toBe(cliente2);
     expect(encontrado.nome).toBe('Maria');
+  });
 
-    // Deve lançar erro ao buscar cliente inexistente
+  it('deve lançar erro ao buscar cliente inexistente', () => {
+    const repository = new ClienteRepository();
+    const cliente1 = new Cliente('João', TIPOS_CLIENTE.PADRAO);
+    const cliente2 = new Cliente('Maria', TIPOS_CLIENTE.PREMIUM);
+
+    repository.adicionar(cliente1);
+    repository.adicionar(cliente2);
+
     expect(() => repository.buscarPorNome('Pedro')).toThrow('Cliente não encontrado: Pedro');
   });
 });
